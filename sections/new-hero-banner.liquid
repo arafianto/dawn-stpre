@@ -4,6 +4,11 @@
   .section-{{ section.id }}-padding {
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
     padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    background: {% if section.settings.background_image != blank %}
+      url({{ section.settings.background_image | image_url: width: 1600 }}) center/cover no-repeat;
+    {% else %}
+      {{ section.settings.background_color }};
+    {% endif %}
   }
 
   @media screen and (min-width: 750px) {
@@ -14,9 +19,86 @@
   }
 {%- endstyle -%}
 
-<div>
-  <div>
-    <h1>Minimal Chairs</h1>
-    <button>SHOP NOW</button>
+<div class="section-{{ section.id }}-padding hero-banner">
+  <div class="hero-content">
+    <h1>{{ section.settings.heading }}</h1>
+    {% if section.settings.subtext != blank %}
+      <p>{{ section.settings.subtext }}</p>
+    {% endif %}
+    {% if section.settings.button_label != blank %}
+      <a href="{{ section.settings.button_link }}" class="btn">
+        {{ section.settings.button_label }}
+      </a>
+    {% endif %}
   </div>
 </div>
+
+{% schema %}
+{
+  "name": "Hero Banner",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Minimal Chairs"
+    },
+    {
+      "type": "textarea",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "Discover our latest collection of minimal furniture."
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link",
+      "default": "/collections/all"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label",
+      "default": "Shop Now"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background Image"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#f5f5f5"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 60
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Banner"
+    }
+  ]
+}
+{% endschema %}
