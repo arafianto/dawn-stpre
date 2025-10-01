@@ -1,0 +1,25 @@
+{
+  "name": "New Main Page",
+  "sections": {
+    "hero": {
+      "type": "new-hero-banner",
+      "settings": {
+        "heading": "Welcome to Our Store",
+        "subtext": "Discover the latest collections and timeless designs.",
+        "button_label": "Shop Now",
+        "button_link": "/collections/all"
+      }
+    },
+    "richtext": {
+      "type": "rich-text",
+      "settings": {
+        "title": "About Our Brand",
+        "text": "<p>We create minimal, sustainable designs crafted with care.</p>"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "richtext"
+  ]
+}
